@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Printing Patterns</title>
+<style>
+  #output {
+    font-family: monospace;
+    white-space: pre;
+  }
+</style>
+</head>
+<body>
+   
+  <div id="output"></div>
+
+<script>
+const outputDiv = document.getElementById('output');
+outputDiv.innerText = "Printing Patterns:\n";
+
+for (let i = 1; i <= 5; i++) {
+    let pattern = '';
+    for (let j = 1; j <= i; j++) {
+        pattern += '* ';
+    }
+    outputDiv.innerText += pattern + '\n';
+}
+</script>
+</body>
+</html>

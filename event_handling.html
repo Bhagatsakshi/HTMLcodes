@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #calendar {
+    margin: 20px auto;
+    border-collapse: collapse;
+  }
+  #calendar th, #calendar td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  #calendar th {
+    background-color: #f2f2f2;
+  }
+  #month, #year {
+    margin-bottom: 10px;
+  }
+  #changeColorBtn {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <h1>Calendar</h1>
+  <div>
+    <label for="month">Month:</label>
+    <select id="month">
+      <option value="0">January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
+    </select>
+    <label for="year">Year:</label>
+    <input type="number" id="year" min="1900" max="2100" value="2024">
+    <button onclick="generateCalendar()">Generate Calendar</button>
+  </div>
+  <table id="calendar">
+    <thead>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody id="calendar-body">
+    </tbody>
+  </table>
+  <button id="changeColorBtn" onclick="changeBackgroundColor()">Change Background Color</button>
+
+<script>
+function generateCalendar() {
+  const monthSelect = document.getElementById('month');
+  const yearInput = document.getElementById('year');
+  const month = parseInt(monthSelect.value);
+  const year = parseInt(yearInput.value);
+  
+  const calendarBody = document.getElementById('calendar-body');
+  calendarBody.innerHTML = '';
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const totalDays = lastDay.getDate();
+
+  let date = 1;
+  let nextDate = 1;
+  let row = calendarBody.insertRow();
+
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 7; j++) {
+      const cell = row.insertCell();
+      if ((i === 0 && j < firstDay.getDay()) || date > totalDays) {
+        cell.textContent = nextDate;
+        cell.classList.add('empty');
+        nextDate++;
+      } else {
+        cell.textContent = date;
+        date++;
+      }
+      if (date > totalDays) break;
+    }
+    if (date > totalDays) break;
+    row = calendarBody.insertRow();
+  }
+}
+
+function changeBackgroundColor() {
+  const newColor = prompt("Enter a color (e.g., red, #00ff00, rgb(255, 0, 0)):");
+  if (newColor) {
+    document.body.style.backgroundColor = newColor;
+  }
+}
+</script>
+</body>
+</html>
